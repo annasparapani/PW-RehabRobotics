@@ -3,7 +3,27 @@ load('T1.mat')
 load('T2.mat')
 load('T3.mat')
 
-% reomove the subject information
+%remove counters
+T1.globalPacketCounter=[];
+T1.packetCounter_C9=[];
+T1.packetCounter_AC=[];
+T1.packetCounter_B5=[];
+T1.packetCounter_B6=[];
+
+T2.globalPacketCounter=[];
+T2.packetCounter_C9=[];
+T2.packetCounter_AC=[];
+T2.packetCounter_B5=[];
+T2.packetCounter_B6=[];
+
+T3.globalPacketCounter=[];
+T3.packetCounter_C9=[];
+T3.packetCounter_AC=[];
+T3.packetCounter_B5=[];
+T3.packetCounter_B6=[];
+
+
+% remove the subject information
 T1(:, end) = []; 
 T2(:, end) = []; 
 T3(:, end) = []; 
@@ -12,17 +32,6 @@ T3(:, end) = [];
 ArmT1x=T1.Axel_X_C9; 
 ArmT2x=T2.Axel_X_C9;
 ArmT3x=T3.Axel_X_C9;
-
-% Extract the column of the Arm Sensor (C9) on the Y axis 
-% ArmT1y=T1.Axel_Y_C9(T1.Subject==4); 
-% ArmT2y=T2.Axel_Y_C9(T3.Subject==4);
-% ArmT3y=T3.Axel_Y_C9(T3.Subject==4);
-
-% Extract the column of the Arm Sensor (C9) on the Z axis 
-% ArmT1z=T1.Axel_Z_C9(T1.Subject==4); 
-% ArmT2z=T2.Axel_Z_C9(T3.Subject==4);
-% ArmT3z=T3.Axel_Z_C9(T3.Subject==4);
-
 
 % THRESHOLD APPLICATION on X axis 
 % in this way, the "break" from the movement is brought to 0 
@@ -118,7 +127,7 @@ clear i;
 % end
 
 % Graph of the thresholded and not thresholded data to compare
-tiledlayout(1,3);
+tiledlayout(3,1);
 
 nexttile 
 plot(ArmT1x)
@@ -200,11 +209,11 @@ E = T2(1:round(length(T2)*0.8),:);
 F = T3(1:round(length(T3)*0.8),:); 
 Data_test = [D; E; F]; 
 
-save('Data_train.mat') % saves the workspace
-save('Data_test.mat')
+%save('Data_train.mat') % saves the workspace
+%save('Data_test.mat')
 
-writematrix(Data_test, "data_test.csv") % saves the matrix as a csv file
-writematrix(Data_train, "data_train.csv")
+writematrix(Data_test, "data_test_allSubs.csv") % saves the matrix as a csv file
+writematrix(Data_train, "data_train_allSubs.csv")
 
 
 

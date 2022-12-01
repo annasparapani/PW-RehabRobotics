@@ -3,6 +3,25 @@ load('T1.mat')
 load('T2.mat')
 load('T3.mat')
 
+%remove counters
+T1.globalPacketCounter=[];
+T1.packetCounter_C9=[];
+T1.packetCounter_AC=[];
+T1.packetCounter_B5=[];
+T1.packetCounter_B6=[];
+
+T2.globalPacketCounter=[];
+T2.packetCounter_C9=[];
+T2.packetCounter_AC=[];
+T2.packetCounter_B5=[];
+T2.packetCounter_B6=[];
+
+T3.globalPacketCounter=[];
+T3.packetCounter_C9=[];
+T3.packetCounter_AC=[];
+T3.packetCounter_B5=[];
+T3.packetCounter_B6=[];
+
 ArmT1x_sub1 = T1.Axel_X_C9(T1.Subject==1); 
 ArmT1x_sub2 = T1.Axel_X_C9(T1.Subject==2); 
 ArmT1x_sub3 = T1.Axel_X_C9(T1.Subject==3); 
@@ -223,7 +242,7 @@ legend ("T3")
 %% SAVING DATA
 
 % remove the subject information (leave just the data) 
-T2(:, end) = []; 
+T1(:, end) = []; 
 T2(:, end) = []; 
 T3(:, end) = []; 
 
@@ -234,6 +253,8 @@ T3 = table2array(T3);
 T1 = [T1 ArmT1x(:,2)];
 T2 = [T2 2*ArmT2x(:,2)];
 T3 = [T3 3*ArmT3x(:,2)]; 
+
+Entire_dataset=[T1;T2;T3];
 
 % Training dataset
 A = T1(1:round(length(T1)*0.8),:); 
@@ -247,11 +268,12 @@ E = T2(1:round(length(T2)*0.8),:);
 F = T3(1:round(length(T3)*0.8),:); 
 Data_test = [D; E; F]; 
 
-save('Data_train.mat') % saves the workspace
-save('Data_test.mat')
+%save('Data_train.mat') % saves the workspace
+%save('Data_test.mat')
 
-writematrix(Data_test, "data_test.csv") % saves the matrix as a csv file
-writematrix(Data_train, "data_train.csv")
+writematrix(Entire_dataset,"data_entire_eachSub.csv")
+writematrix(Data_test, "data_test_eachSub.csv") % saves the matrix as a csv file
+writematrix(Data_train, "data_train_eachSub.csv")
 
 
 
