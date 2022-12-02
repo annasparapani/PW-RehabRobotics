@@ -220,23 +220,23 @@ ArmT2x=[ArmT2x_sub1;ArmT2x_sub2;ArmT2x_sub3; ArmT2x_sub4;ArmT2x_sub5];
 ArmT3x=[ArmT3x_sub1;ArmT3x_sub2;ArmT3x_sub3; ArmT3x_sub4;ArmT3x_sub5];
 
 
-%% Graph of the thresholded and not thresholded data to compare
-tiledlayout(3,1);
-
-nexttile 
-plot(ArmT1x)
-title("Arm C9 sensor X axis accelerations for T1")
-legend ("T1")
-
-nexttile 
-plot(ArmT2x)
-title("Arm C9 sensor X axis accelerations for T2")
-legend ("T2")
-
-nexttile 
-plot(ArmT3x)
-title("Arm C9 sensor X axis accelerations for T3")
-legend ("T3")
+% %% Graph of the thresholded and not thresholded data to compare
+% tiledlayout(3,1);
+% 
+% nexttile 
+% plot(ArmT1x)
+% title("Arm C9 sensor X axis accelerations for T1")
+% legend ("T1")
+% 
+% nexttile 
+% plot(ArmT2x)
+% title("Arm C9 sensor X axis accelerations for T2")
+% legend ("T2")
+% 
+% nexttile 
+% plot(ArmT3x)
+% title("Arm C9 sensor X axis accelerations for T3")
+% legend ("T3")
 
 
 %% SAVING DATA
@@ -260,20 +260,20 @@ Entire_dataset=[T1;T2;T3];
 A = T1(1:round(length(T1)*0.8),:); 
 B = T2(1:round(length(T2)*0.8),:); 
 C = T1(1:round(length(T3)*0.8),:); 
-Data_train = [A; B; C];
+Data_train_eachSub = [A; B; C];
 
 % Test dataset
 D = T1(round(length(T1)*0.8):end,:); 
-E = T2(1:round(length(T2)*0.8),:); 
-F = T3(1:round(length(T3)*0.8),:); 
-Data_test = [D; E; F]; 
+E = T2(round(length(T2)*0.8):end,:); 
+F = T3(round(length(T3)*0.8):end,:); 
+Data_test_eachSub = [D; E; F]; 
 
 %save('Data_train.mat') % saves the workspace
 %save('Data_test.mat')
 
 writematrix(Entire_dataset,"data_entire_eachSub.csv")
-writematrix(Data_test, "data_test_eachSub.csv") % saves the matrix as a csv file
-writematrix(Data_train, "data_train_eachSub.csv")
+writematrix(Data_test_eachSub, "data_test_eachSub.csv") % saves the matrix as a csv file
+writematrix(Data_train_eachSub, "data_train_eachSub.csv")
 
 
 
