@@ -36,16 +36,20 @@ public:
     int Number_of_points = 0; 
     int Ramp = 0; 
     int Period = 0; 
-    int stim_current = 0;
+    int stim_current_shoulder = 0; // canale blu (1) 
+    int stim_current_bicep=0;
+    int stim_current = 0; 
     int stim_PW = 0;
     int Freq_stim = 40; 
     // int T_stim = 1/Freq_stim*1000;
     int Number_of_channels = 0; 
+    int counter = 0; 
 
     /* Stimulator functions */ 
     void initialize_ml_stimulation();
     void initialize_ll_stimulation();
-    void ml_stimulate();
+    void ml_stimulate_shoulder();
+    void ml_stimulate_bicep(); 
     void ll_stimulate();
     void set_stimulation_variables();
 

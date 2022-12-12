@@ -10,14 +10,14 @@ using namespace std;
 char stim_mode = 0; 
 
 // TensorFlow socket buffer
-const uint32_t tf_buf_size = 4;
+const uint32_t tf_buf_size = 4; 
 uint8_t tf_buf[tf_buf_size];
 
 void f_tf_socket_read(void);
 int tf_socket;
 volatile bool tf_data_ready = false;
 // Prediction from TF model (Python)
-int32_t task_pred = 0;
+int32_t task_pred = 0; // input from the classificator 
 
 int main(int argc, char** argv) {
  
@@ -42,9 +42,9 @@ int main(int argc, char** argv) {
    }
    
    // Connect with the TensorFlow model over TCP
-   tf_socket = connect_socket(host, port);
+   // tf_socket = connect_socket(host, port);
    // Launch a new thread that reads incoming data from the TF model
-   std::thread t_tf_read(f_tf_socket_read);
+   // std::thread t_tf_read(f_tf_socket_read);
 
    if((stim_mode == 'm') || (stim_mode == 'M')){
 
@@ -64,28 +64,50 @@ int main(int argc, char** argv) {
       exit(1);
 
    }
+ 
+   task_pred=0; 
 
-   while(1) {
+   while(stim.counter!=10) {
 
       if((stim_mode == 'm') || (stim_mode == 'M')){
 
          // Check for new data from TF socket
-         if( tf_data_ready ) {
-            tf_data_ready = false;
+         //if( tf_data_ready ) {
+           // tf_data_ready = false;
             // Copy the bytes into our variable
-            memcpy(&task_pred, tf_buf, 4);
-            cout << "[tf_socket] received: " << std::to_string(task_pred) << endl;
-         }
+            //memcpy(&task_pred, tf_buf, 4);
+            //cout << "[tf_socket] received: " << std::to_string(task_pred) << endl;
+         //}
+
          /* Stimulate the corresponding muscles*/
          /*With ML mode you have to update the pkg at least every 2 seconds to "wake up" stimulation*/
-         if(task_pred==1){
-            stim.ml_stimulate();
-            cout << "check_sent" << stim.check_sent << endl;
+
+         if(task_pred==0){ //chiama stimolazione per il task 3
+
+            cout << "counter: " << stim.counter << endl; 
+            stim.ml_stimulate_shoulder();
+            cout << "stimulation of shoulder only " << endl;
+            
+            // cout << "check_sent" << stim.check_sent << endl;
+            if(stim.counter>4){
+               stim.ml_stimulate_bicep();
+               // cout << "check_sent" << stim.check_sent << endl; 
+               cout << "stimulation of the biceps + shoulder" << endl;
+            }
+            else if(stim.counter>8) stim.counter=10; 
          }
 
-         sleep(1);
-      
+         else if(task_pred==2){
+            stim.ml_stimulate_shoulder();
+            // cout << "check_sent" << stim.check_sent << endl;
+            cout << "stimulation of the shoulder" << endl;
+            if(stim.counter>7) stim.counter=10; 
+         }
+         
+         stim.counter=stim.counter+1; 
+         usleep(500000);// usleep ms 
       }
+
       else if((stim_mode=='l') || (stim_mode=='L')){
 
          /*With LL mode you have to a new pulse at the Stimulation Frequency*/
@@ -97,7 +119,7 @@ int main(int argc, char** argv) {
    
    }
 
-   t_tf_read.join();
+  // t_tf_read.join();
 
    smpt_close_serial_port(&stim.device);
 

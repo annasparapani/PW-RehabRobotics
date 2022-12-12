@@ -16,8 +16,8 @@ void stimulation::initialize_ml_stimulation(){
     !! You can choose to enable all the channels or only the ones that you are going to use */
 
     ml_update.enable_channel[Smpt_Channel_Red] = true;
-    // ml_update.enable_channel[Smpt_Channel_Blu] = true;
-    // ml_update.enable_channel[Smpt_Channel_White] = true;
+    //ml_update.enable_channel[Smpt_Channel_Blue] = true;
+    ml_update.enable_channel[Smpt_Channel_White] = true;
     // ml_update.enable_channel[Smpt_Channel_Black] = true;
 
     /* Send the initialized packet to the stimulator*/
@@ -33,43 +33,71 @@ void stimulation::set_stimulation_variables(){
     Ramp = 3; 
 
     // Period between to adjacent pulses [ms]
-    Period = 25; 
+    Period = 25; // frequenza  
 
     // Amplitude of stimulation
-    stim_current = 10;
-
+    stim_current_shoulder = 15;
+    stim_current_bicep=10; 
     // Pulsewidth of stimulation
     stim_PW = 300;
 
     // Active channels of the stimulator [0 3]
-    Number_of_channels = 3; 
+    Number_of_channels = 2; 
 
 }
+//********************  SHOULDER STIMULATION FUNCTION *************************************************************
+void stimulation::ml_stimulate_shoulder(){
 
-void stimulation::ml_stimulate(){
+        ml_update.channel_config[Smpt_Channel_Blue].number_of_points = Number_of_points;
+        ml_update.channel_config[Smpt_Channel_Blue].ramp = Ramp;
+        ml_update.channel_config[Smpt_Channel_Blue].period = Period; 
 
+        for (int j=0; j<Number_of_points; j++){
+
+            /* Biphasic waveform */
+
+            ml_update.channel_config[Smpt_Channel_Blue].points[j].current = stim_current_shoulder;
+            ml_update.channel_config[Smpt_Channel_Blue].points[j].current = 0;
+            ml_update.channel_config[Smpt_Channel_Blue].points[j].current = -stim_current_shoulder;
+            
+
+            ml_update.channel_config[Smpt_Channel_Blue].points[j].time = stim_PW;
+            ml_update.channel_config[Smpt_Channel_Blue].points[j].time = 0;
+            ml_update.channel_config[Smpt_Channel_Blue].points[j].time =stim_PW;
+
+        }
+  
+    // Send packet
+    smpt_send_ml_update(&device, &ml_update);
+    Smpt_ml_get_current_data ml_get_current_data = {0};
+    ml_get_current_data.packet_number = smpt_packet_number_generator_next(&device);
+    ml_get_current_data.data_selection[Smpt_Ml_Data_Stimulation] = true;
+
+    // You can print the output of the function to check if the command has been sent
+    check_sent = smpt_send_ml_get_current_data(&device, &ml_get_current_data);
+} 
+
+//********************  BICEPS STIMULATION FUNCTION *************************************************************
+void stimulation::ml_stimulate_bicep(){
     /*For each channel you should define all the properties of the stimulation as follow: */ 
-    
 
-    for (int i=0; i<3; i++){
-
-        ml_update.channel_config[i].number_of_points = Number_of_points;
-        ml_update.channel_config[i].ramp = Ramp;
-        ml_update.channel_config[i].period = Period; 
+        ml_update.channel_config[Smpt_Channel_Red].number_of_points = Number_of_points;
+        ml_update.channel_config[Smpt_Channel_Red].ramp = Ramp;
+        ml_update.channel_config[Smpt_Channel_Red].period = Period; 
 
         for (int j=0; j<Number_of_points; j++){
 
             /* Biphasic waveform */ 
-            ml_update.channel_config[i].points[j].current = stim_current;
-            ml_update.channel_config[i].points[j].current = 0;
-            ml_update.channel_config[i].points[j].current = -stim_current;
+        
+            ml_update.channel_config[Smpt_Channel_Red].points[j].current = stim_current_bicep;
+            ml_update.channel_config[Smpt_Channel_Red].points[j].current = 0;
+            ml_update.channel_config[Smpt_Channel_Red].points[j].current = -stim_current_bicep;
 
-            ml_update.channel_config[i].points[j].time = stim_PW;
-            ml_update.channel_config[i].points[j].time = 0;
-            ml_update.channel_config[i].points[j].time =stim_PW;
+            ml_update.channel_config[Smpt_Channel_Red].points[j].time = stim_PW;
+            ml_update.channel_config[Smpt_Channel_Red].points[j].time = 0;
+            ml_update.channel_config[Smpt_Channel_Red].points[j].time =stim_PW;
 
-        }
-    }
+        }       
 
     // Send packet
     smpt_send_ml_update(&device, &ml_update);
@@ -79,7 +107,6 @@ void stimulation::ml_stimulate(){
 
     // You can print the output of the function to check if the command has been sent
     check_sent = smpt_send_ml_get_current_data(&device, &ml_get_current_data);
-
 }
 
 
