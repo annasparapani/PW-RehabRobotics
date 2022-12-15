@@ -15,7 +15,7 @@
 
 // Working modes
 #define OFFLINE_DATA_ACQUISITION	0
-#define ONLINE_FES_CONTROL			1
+#define ONLINE_FES_CONTROL		1
 // Set default working mode
 volatile uint8_t _working_mode = ONLINE_FES_CONTROL;
 
@@ -185,7 +185,6 @@ int main(int argc, char* argv[]) {
 		MTwLog.updateRate = newUpdateRate;
 
 		/// Get user/trial info
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max());
 		if( _debug == false ) {
 			std::cout << "User number:  ";
 			MTwLog.user = std::cin.get();
@@ -218,7 +217,7 @@ int main(int argc, char* argv[]) {
 		// Master Configuration Complete
 		//-------------------------------------------------------------------------------------------------------------
 
-		std::cout << " Waiting for MTw to wirelessly connect..." << std::endl;
+		std::cout << "\n Waiting for MTw to wirelessly connect..." << std::endl;
 		bool waitForConnections = true;
 		bool calibrationFlag = false;
 		size_t connectedMTWCount = wirelessMasterCallback.getWirelessMTWs().size();
@@ -344,17 +343,17 @@ int main(int argc, char* argv[]) {
 			std::cin.get();
 		}
 
-		std::cout << " Opening TCP connection...\n";
 		//-------------------------------------------------------------------------------------------------------------
 		// TCP SOCKET 
 		//-------------------------------------------------------------------------------------------------------------
 		int server_fd = -1;
 		int new_socket = -1;
 		/// TCP Data buffer
-		uint32_t buf_size = sizeof(float)*6*mtwCallbacks.size();	// 4 bytes * 3 axis * 2 channels * 6 sensors = 144 bytes
+		uint32_t buf_size = sizeof(float)*6*mtwCallbacks.size();	// 4 bytes * 3 axis * 2 channels * 4 sensors
 		uint8_t buf[buf_size];
 		// Open socket only if we are working with the FES controller
 		if( _working_mode == ONLINE_FES_CONTROL ) {
+			std::cout << " Opening TCP connection...\n";
 			server_fd = socket(AF_INET, SOCK_STREAM, 0);
 			if ( server_fd == 0 ) {
 				std::cout << " [ERROR] Failed to open socket\n";
@@ -369,11 +368,16 @@ int main(int argc, char* argv[]) {
 			if ( r < 0 ) {
 				std::cout << " [ERROR] Failed to bind the TCP socket\n";
 			}
-			listen(server_fd, 3);
+			r = listen(server_fd, 10);
+			if( r != 0 ) {
+				std::cout << " [ERROR] listen() failed\n";
+				return 1;
+			}
 			int addrlen = sizeof(address);
-			int new_socket = accept(server_fd, (struct sockaddr *) &address, (socklen_t*) &addrlen);
+			new_socket = accept(server_fd, (struct sockaddr *) &address, (socklen_t*) &addrlen);
 			if ( new_socket < 0 ) {
 				std::cout << " [ERROR] Failed to accept TCP connection\n";
+				return 1;
 			}
 			else {
 				std::cout << " [INFO] TCP connection started.\n";

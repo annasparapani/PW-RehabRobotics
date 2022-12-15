@@ -1,6 +1,6 @@
 % Import raw data from Xsens cpp acquisition code 
 
-% For each task aquire a different file and read each file separatelty
+% Each file contains one task - read each task separately
 T1=readtable('File1.csv');
 T2=readtable('File2.csv');
 T3=readtable('File3.csv');
@@ -78,10 +78,5 @@ end
 
 % Concatenate task in a matrix and save it for further processing 
 Data = [T1; T2; T3];
-Data_train = [T1(1:round(length(T1)*0.8)); T2(1:round(length(T2)*0.8)); T3(1:round(length(T3)*0.8))];
-Data_test = [T1(1:round(length(T1)*0.2)); T2(1:round(length(T2)*0.2)); T3(1:round(length(T3)*0.2))];
-save ('Data_train.mat', Data_train);
-save ('Data_test.mat', Data_test);
-
 save('Data.mat','Data') ;
 

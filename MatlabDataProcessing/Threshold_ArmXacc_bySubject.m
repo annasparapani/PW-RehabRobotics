@@ -219,6 +219,16 @@ ArmT1x=[ArmT1x_sub1;ArmT1x_sub2;ArmT1x_sub3; ArmT1x_sub4;ArmT1x_sub5];
 ArmT2x=[ArmT2x_sub1;ArmT2x_sub2;ArmT2x_sub3; ArmT2x_sub4;ArmT2x_sub5];
 ArmT3x=[ArmT3x_sub1;ArmT3x_sub2;ArmT3x_sub3; ArmT3x_sub4;ArmT3x_sub5];
 
+figure()
+tiledlayout(1,2)
+
+nexttile
+plot(ArmT1x_sub4); 
+
+nexttile
+plot(ArmT3x_sub4); 
+
+
 
 % %% Graph of the thresholded and not thresholded data to compare
 % tiledlayout(3,1);
