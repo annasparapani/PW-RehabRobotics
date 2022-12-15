@@ -1,5 +1,5 @@
 # IMU-triggered FES
-## Rehabilitaion Robotics Project Workshop 
+## Rehabilitation Robotics Project Workshop 
 ### Group 4
 Alice Montelaghi 		992880
 
