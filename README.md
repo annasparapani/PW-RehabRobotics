@@ -1,11 +1,15 @@
 # IMU-triggered FES
 ## Rehabilitaion Robotics Project Workshop 
 ### Group 4
-Alice Montelaghi 		992880 \
-Anna Sparapani		994481 \ 
-Asia Muraca       994303 \
-Elisa Motta 		990589 \
-Emeline Jacques-Jean 	219560\ 
+Alice Montelaghi 		992880
+
+Anna Sparapani		994481
+
+Asia Muraca       994303
+
+Elisa Motta 		990589 
+
+Emeline Jacques-Jean 	219560 \ 
 
 
 > **DISCLAIMER**\ 
