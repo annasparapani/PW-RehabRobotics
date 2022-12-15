@@ -8,8 +8,7 @@ Anna Sparapani		994481
 Asia Muraca       994303
 
 Elisa Motta 		990589 
-
-Emeline Jacques-Jean 	219560 \ 
+Emeline Jacques-Jean 	219560 
 
 
 > **DISCLAIMER**\ 
@@ -17,12 +16,12 @@ Emeline Jacques-Jean 	219560 \
 
 Hi! welcome to our Project Workshop code. Here you can find the code we used to develop our IMU - triggered FES system for motor rehabilitation. It consists of
 1. a model "train_lstm.py" able to perform the online classification between tasks. It has been trained on our tasks
-> **Tasks and IMUs placement**
-> We defined two tasks: (1) "switch the light" task that consists of extending the shoulder as to reachinf for a switch, and (2) "look at your watch" task that consists of flexing the elbow towards the chest as to look for your watch. Both tasks are to be performed from a sitting poition, with the arm resting on the table in front of the subject. 
-> We used 4 IMUs from the MTW Awinda system by Xsens and placed them on the hand, forearm, arm and chest. These provide the data the classificator uses to determine which task is being initiated by the subject
+> **Tasks and IMUs placement**\
+> We defined two tasks: (1) "switch the light" task that consists of extending the shoulder as to reachinf for a switch, and (2) "look at your watch" task that consists of flexing the elbow towards the chest as to look for your watch. Both tasks are to be performed from a sitting poition, with the arm resting on the table in front of the subject.\
+> We used 4 IMUs from the MTW Awinda system by Xsens and placed them on the hand, forearm, arm and chest. These provide the data the classificator uses to determine which task is being initiated by the subject\
 2. code for the xsens acquisition (entirely provided by our tutor)
 3. code for the FES stimulation
-> **Electrodes placement and stimulation**
+> **Electrodes placement and stimulation**\
 > with this setting we perfom a two-channel stimulation, to the tricep and bicep, to produce shoulder extention and elbow flexion, respectively.
 > The stimulation parameters are set in the FES code. We use 
 > 1. frequency of 40Hz
