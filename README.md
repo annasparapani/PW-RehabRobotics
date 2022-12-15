@@ -11,7 +11,8 @@ Elisa Motta 		990589
 Emeline Jacques-Jean 	219560 
 
 
-> **DISCLAIMER**\ 
+> **DISCLAIMER**
+> 
 > Most of the code you find in this repository has been provided to us by out tutor, Federica Ferrari, we just changed to meet the specific objectives of the project. We uploaded it in the repository just to have an easy way to share, update it and hand it in, but we are not taking credit for any of it. 
 
 Hi! welcome to our Project Workshop code. Here you can find the code we used to develop our IMU - triggered FES system for motor rehabilitation. It consists of
