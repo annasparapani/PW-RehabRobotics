@@ -50,37 +50,59 @@ void stimulation::set_stimulation_variables(){
 void stimulation::ml_stimulate(){
 
     /*For each channel you should define all the properties of the stimulation as follow: */ 
+    
 
-if (flag==2){ // TASK 2 : looking at watch - RED channel - bicep flexion
+    //for (int i=0; i<2; i++){
+
+        //ml_update.channel_config[i].number_of_points = Number_of_points;
+        //ml_update.channel_config[i].ramp = Ramp;
+        //ml_update.channel_config[i].period = Period; 
+
+        //for (int j=0; j<Number_of_points; j++){
+
+            /* Biphasic waveform */ 
+            //ml_update.channel_config[i].points[j].current = stim_current;
+            //ml_update.channel_config[i].points[j].current = 0;
+            //ml_update.channel_config[i].points[j].current = -stim_current;
+
+            //ml_update.channel_config[i].points[j].time = stim_PW;
+            //ml_update.channel_config[i].points[j].time = 0;
+            //ml_update.channel_config[i].points[j].time = stim_PW;
+
+        //}
+    //}
+
+if (flag==1){
+// Channel 0: tricep (red)
     ml_update.channel_config[0].number_of_points = Number_of_points;
     ml_update.channel_config[0].ramp = Ramp;
     ml_update.channel_config[0].period = Period;
 
     /* Biphasic waveform */ 
-    ml_update.channel_config[0].points[0].current = 10;
+    ml_update.channel_config[0].points[0].current = 9;
     ml_update.channel_config[0].points[0].time = stim_PW;
 
     ml_update.channel_config[0].points[1].current = 0;
     ml_update.channel_config[0].points[1].time = 0;
 
-    ml_update.channel_config[0].points[2].current = -10;
+    ml_update.channel_config[0].points[2].current = -9;
     ml_update.channel_config[0].points[2].time = stim_PW;}
 
-else if (flag==1){
+else if (flag==2){
 
-// TASK 1 : switch light - BLUE channel - shoulder extension
+// Channel 1: bicep (blue)
     ml_update.channel_config[1].number_of_points = Number_of_points;
     ml_update.channel_config[1].ramp = Ramp;
     ml_update.channel_config[1].period = Period;
 
     /* Biphasic waveform */ 
-    ml_update.channel_config[1].points[0].current = 15;
+    ml_update.channel_config[1].points[0].current = 8;
     ml_update.channel_config[1].points[0].time = stim_PW;
 
     ml_update.channel_config[1].points[1].current = 0;
     ml_update.channel_config[1].points[1].time = 0;
 
-    ml_update.channel_config[1].points[2].current = -15;
+    ml_update.channel_config[1].points[2].current = -8;
     ml_update.channel_config[1].points[2].time = stim_PW;
 }
 

@@ -17,9 +17,8 @@ uint8_t tf_buf[tf_buf_size];
 void f_tf_socket_read(void);
 int tf_socket;
 volatile bool tf_data_ready = false;
-
 // Prediction from TF model (Python)
-int32_t task_pred = 5;
+int32_t task_pred = 0;
 
 int main(int argc, char** argv) {
  
@@ -72,7 +71,7 @@ int main(int argc, char** argv) {
       if((stim_mode == 'm') || (stim_mode == 'M')){
 
          // Check for new data from TF socket
-         if(tf_data_ready) {
+         if( tf_data_ready ) {
             tf_data_ready = false;
             // Copy the bytes into our variable
             memcpy(&task_pred, tf_buf, 4);
@@ -80,18 +79,18 @@ int main(int argc, char** argv) {
          }
          /* Stimulate the corresponding muscles*/
          /*With ML mode you have to update the pkg at least every 2 seconds to "wake up" stimulation*/
-         if(task_pred==1){ // Makes task 2 = look at your watch
-            stim.flag = 2;
-            stim.ml_stimulate();
-            cout << "TASK 2: Look at your watch (elbow flexion)" << stim.check_sent << endl;
-         }
-         else  if(task_pred==2){ // Makes task 1 = switch the light
+         if(task_pred==1){
             stim.flag = 1;
             stim.ml_stimulate();
-            cout << "TASK 1: Switch the light (shoulder extention)" << stim.check_sent << endl;
+            cout << "check_sent: TASK 1: Elbow extension" << stim.check_sent << endl;
+         }
+         else if(task_pred==2){
+            stim.flag = 2;
+            stim.ml_stimulate();
+            cout << "check_sent: TASK 2: Elbow flexion" << stim.check_sent << endl;
          }
 
-         sleep(1); // sleep for half a second
+         sleep(1);
       
       }
       else if((stim_mode=='l') || (stim_mode=='L')){
@@ -101,7 +100,7 @@ int main(int argc, char** argv) {
             stim.ll_stimulate();
          }
          cout << "check_sent" << stim.check_sent << endl;
-         sleep(1);
+         usleep(stim.Period);
       
       }
    
