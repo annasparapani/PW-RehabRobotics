@@ -73,36 +73,36 @@ void stimulation::ml_stimulate(){
     //}
 
 if (flag==1){
-// Channel 0: tricep (red)
+// Channel 0: deltoid (blu)
     ml_update.channel_config[0].number_of_points = Number_of_points;
     ml_update.channel_config[0].ramp = Ramp;
     ml_update.channel_config[0].period = Period;
 
     /* Biphasic waveform */ 
-    ml_update.channel_config[0].points[0].current = 9;
+    ml_update.channel_config[0].points[0].current = 15;
     ml_update.channel_config[0].points[0].time = stim_PW;
 
     ml_update.channel_config[0].points[1].current = 0;
     ml_update.channel_config[0].points[1].time = 0;
 
-    ml_update.channel_config[0].points[2].current = -9;
+    ml_update.channel_config[0].points[2].current = -15;
     ml_update.channel_config[0].points[2].time = stim_PW;}
 
 else if (flag==2){
 
-// Channel 1: bicep (blue)
+// Channel 1: biceps (red)
     ml_update.channel_config[1].number_of_points = Number_of_points;
     ml_update.channel_config[1].ramp = Ramp;
     ml_update.channel_config[1].period = Period;
 
     /* Biphasic waveform */ 
-    ml_update.channel_config[1].points[0].current = 8;
+    ml_update.channel_config[1].points[0].current = 10;
     ml_update.channel_config[1].points[0].time = stim_PW;
 
     ml_update.channel_config[1].points[1].current = 0;
     ml_update.channel_config[1].points[1].time = 0;
 
-    ml_update.channel_config[1].points[2].current = -8;
+    ml_update.channel_config[1].points[2].current = -10;
     ml_update.channel_config[1].points[2].time = stim_PW;
 }
 

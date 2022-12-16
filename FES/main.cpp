@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
          if(task_pred==1){
             stim.flag = 1;
             stim.ml_stimulate();
-            cout << "check_sent: TASK 1: Elbow extension" << stim.check_sent << endl;
+            cout << "check_sent: TASK 1: Shoulder extension" << stim.check_sent << endl;
          }
          else if(task_pred==2){
             stim.flag = 2;
