@@ -2,6 +2,8 @@
 **/data/*
 **/*.csv
 **/.vscode/*
+**/.venv/*
+**/.venc/*
 
 **/.python-version
 
