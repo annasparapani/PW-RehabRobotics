@@ -19,7 +19,10 @@ Hi! welcome to our Project Workshop code. Here you can find the code we used to 
 1. a model "train_lstm.py" able to perform the online classification between tasks. It has been trained on our tasks
 > **Tasks and IMUs placement**\
 > We defined two tasks: (1) "switch the light" task that consists of extending the shoulder as to reachinf for a switch, and (2) "look at your watch" task that consists of flexing the elbow towards the chest as to look for your watch. Both tasks are to be performed from a sitting poition, with the arm resting on the table in front of the subject.\
-> We used 4 IMUs from the MTW Awinda system by Xsens and placed them on the hand, forearm, arm and chest. These provide the data the classificator uses to determine which task is being initiated by the subject\
+> We used 4 IMUs from the MTW Awinda system by Xsens and placed them on the hand, forearm, arm and chest. These provide the data the classificator uses to determine which task is being initiated by the subject
+
+> **Training code**
+> the model has been trained with the code in the "tensorflow" folder. Before training, the dataset has been prepared in MatLab with the code in the "MatlabDataProcessing" folder, and shuffled and separated with the "shuffle and split" code, which gave the datsets for the training code.
 2. code for the xsens acquisition (entirely provided by our tutor)
 3. code for the FES stimulation
 > **Electrodes placement and stimulation**\
